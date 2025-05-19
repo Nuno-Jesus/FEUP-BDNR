@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+    <head>
+        <title>{{ bookmark.url }}</title>
+    </head>
+    <body>
+        <h1>Bookit!</h1>
+        <h2>{{ bookmark.url }}</h2>
+        <hr>  
+        <p>
+            Tags: [&nbsp;
+                {% for tag in bookmark.tags %}
+                    <a href="/?tags={{tag}}">{{tag}}</a>
+                    &nbsp;
+                {% endfor %}]
+        </p>
+        <p>Created at: {{ bookmark.timestamp }}</p>
+        <a href="{{ url_for('main.homepage') }}">Back</a>
+    </body>
+</html>

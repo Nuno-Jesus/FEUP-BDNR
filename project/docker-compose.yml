@@ -1,0 +1,52 @@
+services:
+  ravendb:
+    container_name: bdnr-db
+    image: ravendb/ravendb:ubuntu-latest
+    hostname: bdnr-raven
+    ports:
+      - 8080:8080
+      - 38888:38888
+    environment:
+      - RAVEN_Security_UnsecuredAccessAllowed=PublicNetwork
+      - RAVEN_Setup_Mode=None
+      - RAVEN_License_Eula_Accepted=true
+    volumes:
+      - ./ravendb/data:/var/lib/ravendb/data/
+    networks:
+      - bdnr-network
+  
+  backend:
+    container_name: bdnr-backend
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./api/.env
+    depends_on:
+      - ravendb
+    networks:
+      - bdnr-network
+
+  frontend:
+    container_name: bdnr-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend/src:/usr/app/src
+      - ./frontend/public:/usr/app/public
+    ports:
+      - "8000:8000"
+    depends_on:
+      - backend
+      - ravendb
+    networks:
+      - bdnr-network
+
+networks:
+  bdnr-network:
+    driver: bridge
+
+  

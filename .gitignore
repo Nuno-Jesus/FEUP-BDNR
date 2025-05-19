@@ -1,0 +1,4 @@
+project/ravendb/data
+project/api/node_modules
+project/api/package-lock.json
+project/data/types

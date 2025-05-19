@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head><title>Add Bookmark</title></head>
+<body>
+    <h1>Add a new Bookmark</h1>
+    <form method="post">
+        <label for="url">URL:</label>
+        <input type="text" name="url" id="url">
+        <br>
+        <label for="tags">Tags (list):</label>
+        <input type="text" name="tags" id="tags">
+        <br>
+        <button type="submit">Add (or update) bookmark!</button>
+    </form>
+    <p>
+        <a href="{{ url_for('main.homepage') }}">Go back</a>
+    </p>
+</body>
+</html>
